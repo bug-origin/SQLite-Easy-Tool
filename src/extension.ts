@@ -1,19 +1,21 @@
-import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
-import initSqlJs, { Database } from 'sql.js';
+import * as vscode from "vscode";
+import * as fs from "fs";
+import * as path from "path";
+import initSqlJs, { Database } from "sql.js";
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.window.registerCustomEditorProvider(
-      'sqliteEditor.editor',
+      "sqliteEditor.editor",
       new SqliteEditorProvider(context),
       { webviewOptions: { retainContextWhenHidden: true } }
     )
   );
 }
 
-class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomDocument> {
+class SqliteEditorProvider
+  implements vscode.CustomEditorProvider<vscode.CustomDocument>
+{
   constructor(private readonly context: vscode.ExtensionContext) {}
 
   async openCustomDocument(uri: vscode.Uri): Promise<vscode.CustomDocument> {
@@ -37,7 +39,7 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
     };
 
     try {
-      const wasmPath = path.join(__dirname, 'sql-wasm.wasm');
+      const wasmPath = path.join(__dirname, "sql-wasm.wasm");
       const SQL = await initSqlJs({ locateFile: () => wasmPath });
       const fileBuffer = fs.readFileSync(dbPath);
       db = new SQL.Database(fileBuffer);
@@ -65,8 +67,14 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
 
     const sendData = () => {
       if (!db) return;
-      const tables = queryAll("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'");
-      webviewPanel.webview.postMessage({ type: 'init', tables: tables.map(t => t.name), dbPath });
+      const tables = queryAll(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
+      );
+      webviewPanel.webview.postMessage({
+        type: "init",
+        tables: tables.map((t) => t.name),
+        dbPath,
+      });
     };
 
     webviewPanel.webview.html = this.getHtml(webviewPanel.webview);
@@ -76,65 +84,102 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
 
       try {
         switch (msg.type) {
-          case 'ready':
+          case "ready":
             sendData();
             break;
 
-          case 'getTableData': {
+          case "getTableData": {
             const { table, page = 0, pageSize = 100 } = msg;
             const columns = queryAll(`PRAGMA table_info("${table}")`);
-            const totalResult = queryAll(`SELECT COUNT(*) as count FROM "${table}"`);
+            const totalResult = queryAll(
+              `SELECT COUNT(*) as count FROM "${table}"`
+            );
             const total = totalResult[0]?.count || 0;
-            const rows = queryAll(`SELECT rowid, * FROM "${table}" LIMIT ? OFFSET ?`, [pageSize, page * pageSize]);
-            webviewPanel.webview.postMessage({ type: 'tableData', table, columns, rows, total, page, pageSize });
+            const rows = queryAll(
+              `SELECT rowid, * FROM "${table}" LIMIT ? OFFSET ?`,
+              [pageSize, page * pageSize]
+            );
+            webviewPanel.webview.postMessage({
+              type: "tableData",
+              table,
+              columns,
+              rows,
+              total,
+              page,
+              pageSize,
+            });
             break;
           }
 
-          case 'executeSQL': {
+          case "executeSQL": {
             const { sql } = msg;
             const trimmed = sql.trim().toLowerCase();
-            if (trimmed.startsWith('select') || trimmed.startsWith('pragma')) {
+            if (trimmed.startsWith("select") || trimmed.startsWith("pragma")) {
               const rows = queryAll(sql);
-              const columns = rows.length > 0 ? Object.keys(rows[0]).map(name => ({ name, type: '', pk: 0 })) : [];
-              webviewPanel.webview.postMessage({ type: 'sqlResult', columns, rows, success: true });
+              const columns =
+                rows.length > 0
+                  ? Object.keys(rows[0]).map((name) => ({
+                      name,
+                      type: "",
+                      pk: 0,
+                    }))
+                  : [];
+              webviewPanel.webview.postMessage({
+                type: "sqlResult",
+                columns,
+                rows,
+                success: true,
+              });
             } else {
               const changes = runSql(sql);
               saveDb();
-              webviewPanel.webview.postMessage({ type: 'sqlResult', success: true, changes });
+              webviewPanel.webview.postMessage({
+                type: "sqlResult",
+                success: true,
+                changes,
+              });
               sendData();
             }
             break;
           }
 
-          case 'updateCell': {
+          case "updateCell": {
             const { table, rowid, column, value } = msg;
-            runSql(`UPDATE "${table}" SET "${column}" = ? WHERE rowid = ?`, [value, rowid]);
+            runSql(`UPDATE "${table}" SET "${column}" = ? WHERE rowid = ?`, [
+              value,
+              rowid,
+            ]);
             saveDb();
-            webviewPanel.webview.postMessage({ type: 'updateSuccess' });
+            webviewPanel.webview.postMessage({ type: "updateSuccess" });
             break;
           }
 
-          case 'deleteRow': {
+          case "deleteRow": {
             const { table, rowid } = msg;
             runSql(`DELETE FROM "${table}" WHERE rowid = ?`, [rowid]);
             saveDb();
-            webviewPanel.webview.postMessage({ type: 'deleteSuccess' });
+            webviewPanel.webview.postMessage({ type: "deleteSuccess" });
             break;
           }
 
-          case 'insertRow': {
+          case "insertRow": {
             const { table, data } = msg;
             const columns = Object.keys(data);
             const values = Object.values(data);
-            const placeholders = columns.map(() => '?').join(', ');
-            runSql(`INSERT INTO "${table}" (${columns.map(c => `"${c}"`).join(', ')}) VALUES (${placeholders})`, values);
+            const placeholders = columns.map(() => "?").join(", ");
+            runSql(
+              `INSERT INTO "${table}" (${columns
+                .map((c) => `"${c}"`)
+                .join(", ")}) VALUES (${placeholders})`,
+              values
+            );
             saveDb();
-            webviewPanel.webview.postMessage({ type: 'insertSuccess' });
+            webviewPanel.webview.postMessage({ type: "insertSuccess" });
             break;
           }
         }
       } catch (e: any) {
-        webviewPanel.webview.postMessage({ type: 'error', message: e.message });
+        webviewPanel.webview.postMessage({ type: "error", message: e.message });
       }
     });
 
@@ -215,6 +260,17 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
     .empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text2); gap: 12px; }
     .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    
+    /* Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; min-width: 400px; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+    .modal-header { font-size: 16px; font-weight: 600; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .modal-body { margin-bottom: 16px; }
+    .modal-field { margin-bottom: 12px; }
+    .modal-field label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 4px; }
+    .modal-field input { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 4px; font-size: 13px; }
+    .modal-field input:focus { outline: none; border-color: var(--accent); }
+    .modal-footer { display: flex; gap: 8px; justify-content: flex-end; }
   </style>
 </head>
 <body>
@@ -235,11 +291,20 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
       message: null,
       editingCell: null,
       dbPath: '',
-      loading: true
+      loading: true,
+      addRowForm: null,
+      scrollTop: 0
     };
 
     function render() {
       const root = document.getElementById('root');
+      
+      // Save scroll position before render
+      const gridWrapper = document.querySelector('.grid-wrapper');
+      if (gridWrapper) {
+        state.scrollTop = gridWrapper.scrollTop;
+      }
+      
       if (state.loading) {
         root.innerHTML = '<div class="empty"><div class="spinner"></div>Loading...</div>';
         return;
@@ -269,6 +334,8 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
             </div>
           </div>
         </div>
+        
+        \${state.addRowForm ? renderAddRowModal() : ''}
       \`;
 
       const textarea = document.getElementById('sqlInput');
@@ -278,6 +345,14 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
           if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') runSQL();
         });
       }
+      
+      // Restore scroll position after render
+      setTimeout(() => {
+        const gridWrapper = document.querySelector('.grid-wrapper');
+        if (gridWrapper && state.scrollTop > 0) {
+          gridWrapper.scrollTop = state.scrollTop;
+        }
+      }, 0);
     }
 
     function renderTable() {
@@ -354,6 +429,32 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
         </div>
       \`;
     }
+    
+    function renderAddRowModal() {
+      return \`
+        <div class="modal-overlay" onclick="if(event.target===this)cancelAddRow()">
+          <div class="modal">
+            <div class="modal-header">Add New Row to \${state.currentTable}</div>
+            <div class="modal-body">
+              \${state.addRowForm.columns.map(c => \`
+                <div class="modal-field">
+                  <label>\${c.name} <small style="color:var(--text2)">(\${c.type})</small></label>
+                  <input 
+                    type="text" 
+                    placeholder="Leave empty for NULL"
+                    oninput="state.addRowForm.data['\${c.name}'] = this.value || null"
+                  />
+                </div>
+              \`).join('')}
+            </div>
+            <div class="modal-footer">
+              <button class="btn" onclick="cancelAddRow()">Cancel</button>
+              <button class="btn" onclick="submitAddRow()">Add Row</button>
+            </div>
+          </div>
+        </div>
+      \`;
+    }
 
     function selectTable(name) {
       state.currentTable = name;
@@ -393,10 +494,45 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
     }
 
     function addRow() {
-      const data = {};
-      state.columns.forEach(c => { if (!c.pk) data[c.name] = null; });
+      console.log('addRow called');
+      console.log('Current table:', state.currentTable);
+      console.log('Columns:', state.columns);
+      
+      if (!state.currentTable || !state.columns || state.columns.length === 0) {
+        showMessage('error', 'No table selected or no columns found');
+        return;
+      }
+      
+      const nonPkColumns = state.columns.filter(c => !c.pk);
+      
+      console.log('Non-PK columns:', nonPkColumns);
+      
+      if (nonPkColumns.length === 0) {
+        showMessage('error', 'This table has no non-primary-key columns to insert');
+        return;
+      }
+      
+      // Show input form
+      state.addRowForm = { columns: nonPkColumns, data: {} };
+      render();
+    }
+    
+    function submitAddRow() {
+      const data = state.addRowForm.data;
+      console.log('Sending insertRow message with data:', data);
       vscode.postMessage({ type: 'insertRow', table: state.currentTable, data });
+      state.addRowForm = null;
       setTimeout(() => selectTable(state.currentTable), 100);
+    }
+    
+    function cancelAddRow() {
+      state.addRowForm = null;
+      render();
+    }
+    
+    function showMessage(type, text) {
+      state.message = { type, text };
+      render();
     }
 
     window.addEventListener('message', (e) => {
@@ -447,10 +583,12 @@ class SqliteEditorProvider implements vscode.CustomEditorProvider<vscode.CustomD
     return Promise.resolve();
   }
   backupCustomDocument(): Thenable<vscode.CustomDocumentBackup> {
-    return Promise.resolve({ id: '', delete: () => {} });
+    return Promise.resolve({ id: "", delete: () => {} });
   }
 
-  private readonly _onDidChangeCustomDocument = new vscode.EventEmitter<vscode.CustomDocumentEditEvent<vscode.CustomDocument>>();
+  private readonly _onDidChangeCustomDocument = new vscode.EventEmitter<
+    vscode.CustomDocumentEditEvent<vscode.CustomDocument>
+  >();
   readonly onDidChangeCustomDocument = this._onDidChangeCustomDocument.event;
 }
 
