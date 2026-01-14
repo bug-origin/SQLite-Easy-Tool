@@ -2401,7 +2401,7 @@ var SqliteEditorProvider = class {
       const fileBuffer = fs.readFileSync(dbPath);
       db = new SQL.Database(fileBuffer);
     } catch (e) {
-      webviewPanel.webview.html = `<html><body><h2>\u65E0\u6CD5\u6253\u5F00\u6570\u636E\u5E93: ${e}</h2></body></html>`;
+      webviewPanel.webview.html = `<html><body><h2>Failed to open database: ${e}</h2></body></html>`;
       return;
     }
     const queryAll = (sql, params = []) => {
