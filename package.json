@@ -1,11 +1,11 @@
 {
   "name": "sqlite-easy-tool",
   "displayName": "SQLite Easy Tool",
-  "description": "Visual editor for SQLite databases - view, edit, and query your .db, .sqlite, .sqlite3 files",
-  "version": "0.1.0",
+  "description": "🎨 Visual SQLite database editor - As easy as Excel, view and edit data without writing SQL",
+  "version": "0.1.1",
   "publisher": "Dev-Winston",
   "license": "MIT",
-  "icon": "images/icon.png",
+  "icon": "images/icon.jpg",
   "author": {
     "name": "bug-origin"
   },

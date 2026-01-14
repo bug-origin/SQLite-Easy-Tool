@@ -1,6 +1,244 @@
 # SQLite Easy Tool
 
-一个简洁易用的 VSCode SQLite 数据库可视化编辑器，让你在 VSCode 中轻松查看、编辑和查询 SQLite 数据库。
+🎨 **Operate databases like Excel** - No need to memorize SQL syntax, easily manage SQLite data through an intuitive visual interface. Click, double-click, drag and drop - what you see is what you get!
+
+[![VSCode Version](https://img.shields.io/badge/VSCode-1.85+-blue.svg)](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/bug-origin/SQLite-Easy-Tool?style=social)](https://github.com/bug-origin/SQLite-Easy-Tool)
+
+<!-- Place main screenshot or demo GIF here -->
+<!-- ![Demo](images/demo.gif) -->
+
+## ✨ Say Goodbye to Command Line, Embrace Visualization
+
+**Don't know SQL? No problem!** Just click with your mouse to complete database operations.
+
+- ❌ No need to memorize SQL syntax
+- ❌ No need to open external database tools
+- ❌ No need to type commands in terminal
+- ✅ As simple as editing Excel spreadsheets
+- ✅ All operations in your familiar VSCode
+
+## 🎯 Core Highlights: What You See Is What You Get
+
+### 📊 View Data Like Excel
+
+- **Click to View** - Table list on the left, click what you want to see
+- **Intuitive Display** - Data presented in table format, clear at a glance
+- **Smart Pagination** - Auto-pagination, smooth browsing even for large tables
+- **Type Annotation** - Field types and primary key indicators clearly visible 🔑
+
+### ✏️ Edit Data Like Excel
+
+- **Double-Click to Edit** - Double-click cells to modify directly, no UPDATE statements needed
+- **Click to Add** - Click button to add new rows, form pops up automatically
+- **Click to Delete** - Select row and click delete, goodbye DELETE statements
+- **Instant Save** - Auto-save after modification, no worries about data loss
+
+### 💻 Pro Mode: SQL Query
+
+- **Built-in Editor** - Need complex queries? SQL editor is always ready
+- **One-Click Execute** - Run it right after writing, results appear instantly
+- **Result Visualization** - Query results displayed in table format too
+
+## 📸 Demo: So Simple No Tutorial Needed
+
+<!-- Add feature demo GIFs below -->
+
+### 🖱️ Open = Double-Click File
+
+<!-- ![Open Database](images/open-database.gif) -->
+
+Double-click a `.db` file in VSCode, the extension opens automatically, data appears instantly. **Zero configuration, ready to use.**
+
+### 👆 Edit = Click Cell
+
+<!-- ![Edit Data](images/edit-data.gif) -->
+
+**3 steps to edit data:**
+
+1. 👈 Click table name on left → Data displays
+2. 🖱️ Double-click cell → Enter new value
+3. ✅ Blur to save → Done!
+
+**Add/Delete?** Just click buttons, as natural as any regular app.
+
+### 💡 Advanced = Write SQL (Optional)
+
+<!-- ![SQL Query](images/sql-query.gif) -->
+
+Need complex queries? SQL editor is always ready below. Write it, click "Execute", results come right away.
+
+## 📥 Install in 3 Seconds, Ready to Use
+
+### Method 1: VSCode Marketplace (One-Click Setup)
+
+1. Open VSCode
+2. `Ctrl+Shift+X` (Mac: `Cmd+Shift+X`) to open Extensions
+3. Search "SQLite Easy Tool"
+4. Click Install → Done!
+
+🔗 Direct link: [VSCode Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
+
+### Method 2: Install from VSIX
+
+```bash
+code --install-extension sqlite-easy-tool-0.1.0.vsix
+```
+
+## 🎮 Start Using in 3 Steps: Really Just 3 Steps
+
+1. **📂 Double-Click to Open** - Double-click `.db` file in VSCode
+2. **👈 Click Table Name** - Select the table you want to view on the left
+3. **✨ Start Operating** - Double-click cell to edit!
+
+> 🎉 **It's that simple! No configuration needed, no learning curve.**
+
+---
+
+## 📖 Operation Guide: As Intuitive As a Game
+
+### 👀 View Data: Click to See
+
+| What to Do        | How to Do It                                |
+| ----------------- | ------------------------------------------- |
+| Switch Tables     | 👈 Click table name on left                 |
+| Pagination        | 👇 Click Previous/Next at bottom            |
+| View Column Types | 👁️ Look at column headers, 🔑 = Primary Key |
+
+### ✏️ Edit Data: Double-Click to Edit
+
+| What to Do     | How to Do It                     | Tip               |
+| -------------- | -------------------------------- | ----------------- |
+| Modify Content | 🖱️ Double-click cell to input    | Auto-save on blur |
+| Add New Row    | ➕ Click "Add Row"               | Fill out the form |
+| Delete Row     | ✖️ Select and click "Delete Row" | One-click delete  |
+
+### 💻 Execute SQL: Write and Run
+
+1. 📝 Write statement in SQL editor below
+2. ▶️ Click "Execute" button
+3. 📊 Results automatically displayed in table
+
+---
+
+## 💻 Supported File Formats
+
+✅ `.db` ✅ `.sqlite` ✅ `.sqlite3`
+
+> Double-click these files, automatically opens with visual editor!
+
+## 👨‍💻 Development
+
+### Requirements
+
+- Node.js 18+
+- VSCode 1.85+
+
+### Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Watch mode
+npm run watch
+```
+
+### Package for Release
+
+```bash
+npm run package
+```
+
+### Run Tests
+
+```bash
+npm test
+```
+
+## 🔧 Tech Stack
+
+- **TypeScript** - Type-safe development experience
+- **sql.js** - WebAssembly-based SQLite implementation, no local installation required
+- **VSCode Custom Editor API** - Native editor integration
+- **WebView** - Modern user interface
+
+## ❓ FAQ
+
+<details>
+<summary><b>Q: Will it break my database?</b></summary>
+<br>
+A: Your edits are saved directly to the file. <b>Please backup important data first!</b> 💾
+</details>
+
+<details>
+<summary><b>Q: My database is huge, will it lag?</b></summary>
+<br>
+A: We use pagination loading, <b>100 rows/page</b>, can handle millions of records. But GB-level super large files might be slower.
+</details>
+
+<details>
+<summary><b>Q: Can I create new databases?</b></summary>
+<br>
+A: Current version focuses on <b>viewing and editing</b>. Creation feature is on the way, stay tuned! 🚀
+</details>
+
+<details>
+<summary><b>Q: Don't know SQL, what should I do?</b></summary>
+<br>
+A: <b>That's our highlight!</b> All operations can be done with mouse, SQL is just an advanced option. 👆
+</details>
+
+## 🗺️ Roadmap
+
+We're making it even better:
+
+- [ ] 🎉 Create new databases and tables
+- [ ] 📊 Import/Export CSV data
+- [ ] ✨ Advanced SQL editor (syntax highlighting, auto-completion)
+- [ ] 🏛️ Database schema visualization
+- [ ] 🎨 Multiple theme support
+- [ ] ⚡ Performance optimization (virtual scrolling)
+
+## 🤝 Let's Make It Better Together
+
+Got ideas? Found a bug? Contributions welcome!
+
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 🐛 Encountered a Problem?
+
+Go to [GitHub Issues](https://github.com/bug-origin/SQLite-Easy-Tool/issues) and let us know, we'll fix it ASAP!
+
+## 📜 License
+
+This project is licensed under the [MIT](LICENSE) License.
+
+## ⭐ Like It? Give Us a Star!
+
+If this extension helps you:
+
+- 👍 Give a 5-star review on [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
+- ⭐ Star on [GitHub](https://github.com/bug-origin/SQLite-Easy-Tool)
+- 👋 Share with your friends
+
+---
+
+<div align="center">
+
+**🎉 Enjoy the Fun of Visual Operations!**
+
+Made with ❤️, please Star if you like it ⭐
+
+</div>
 
 [![VSCode Version](https://img.shields.io/badge/VSCode-1.85+-blue.svg)](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -9,56 +247,76 @@
 <!-- 在这里放置扩展的主截图或动图 -->
 <!-- ![Demo](images/demo.gif) -->
 
-## ✨ 为什么选择 SQLite Easy Tool？
+## ✨ 告别命令行，拥抱可视化
 
-在开发过程中，经常需要查看和调试 SQLite 数据库，但切换到外部工具既麻烦又打断工作流程。SQLite Easy Tool 让你直接在 VSCode 中完成所有数据库操作，无需安装额外软件。
+**不会 SQL？没关系！** 用鼠标点点就能完成数据库操作。
 
-## 🚀 功能特性
+- ❌ 不用背 SQL 语法
+- ❌ 不用打开额外的数据库工具
+- ❌ 不用在终端敲命令
+- ✅ 就像编辑 Excel 表格一样简单
+- ✅ 所有操作都在熟悉的 VSCode 中完成
 
-- **📂 可视化浏览** - 直接在 VSCode 中打开 `.db`、`.sqlite`、`.sqlite3` 文件
-- **🗂️ 表格导航** - 侧边栏显示所有数据表，点击即可切换
-- **📄 数据分页** - 支持大数据表分页浏览，每页 100 条记录
-- **💻 SQL 查询** - 内置 SQL 编辑器，执行自定义查询语句
-- **✏️ 单元格编辑** - 双击单元格即可直接修改数据
-- **➕ 行操作** - 支持新增行和删除行
-- **🔍 列信息** - 显示字段类型和主键标识
-- **💾 自动保存** - 数据修改后自动保存到数据库文件
+## 🎯 核心亮点：所见即所得
 
-## 📸 演示
+### 📊 像看 Excel 一样看数据
+
+- **点击查看** - 左侧表格列表，想看哪个点哪个
+- **直观展示** - 数据以表格形式呈现，一目了然
+- **智能分页** - 自动分页，大数据表也能流畅浏览
+- **类型标注** - 字段类型、主键标识清晰可见 🔑
+
+### ✏️ 像改 Excel 一样改数据
+
+- **双击编辑** - 双击单元格直接修改，无需写 UPDATE 语句
+- **点击添加** - 点击按钮添加新行，自动弹出表单
+- **点击删除** - 选中行点删除，告别 DELETE 语句
+- **即时保存** - 修改后自动保存，不用担心丢失
+
+### 💻 高手模式：SQL 查询
+
+- **内置编辑器** - 需要复杂查询？SQL 编辑器随时待命
+- **一键执行** - 写完就能跑，结果立即呈现
+- **结果可视化** - 查询结果同样以表格展示
+
+## 📸 操作演示：简单到不需要教程
 
 <!-- 在下方添加功能演示动图 -->
 
-### 打开数据库文件
+### 🖱️ 打开 = 双击文件
 
 <!-- ![打开数据库](images/open-database.gif) -->
 
-只需在 VSCode 中打开 SQLite 文件，扩展会自动激活并显示可视化界面。
+在 VSCode 中双击 `.db` 文件，扩展自动打开，数据即刻呈现。**零配置，开箱即用。**
 
-### 浏览和编辑数据
+### 👆 编辑 = 点击单元格
 
 <!-- ![编辑数据](images/edit-data.gif) -->
 
-- 在左侧选择要查看的表
-- 双击任意单元格即可编辑
-- 点击"Add Row"添加新行
-- 选择行后点击"Delete Row"删除
+**3 个步骤搞定数据编辑：**
 
-### 执行 SQL 查询
+1. 👈 点左侧表名 → 数据展示
+2. 🖱️ 双击单元格 → 输入新值
+3. ✅ 失焦保存 → 完成！
+
+**添加/删除？** 点按钮就行，像操作普通应用一样自然。
+
+### 💡 高级 = 写 SQL（可选）
 
 <!-- ![SQL查询](images/sql-query.gif) -->
 
-在 SQL 编辑器中输入查询语句，点击"Execute"查看结果。
+需要复杂查询？下方 SQL 编辑器随时待命。写完点「Execute」，结果马上就来。
 
-## 📦 安装
+## � 3 秒安装，开箱即用
 
-### 从 VSCode 扩展市场安装（推荐）
+### 方法一：VSCode 应用店（一键搞定）
 
 1. 打开 VSCode
-2. 按 `Ctrl+Shift+X` (Mac: `Cmd+Shift+X`) 打开扩展面板
-3. 搜索 "SQLite Easy Tool"
-4. 点击安装
+2. `Ctrl+Shift+X` (Mac: `Cmd+Shift+X`) 打开扩展
+3. 搜索「SQLite Easy Tool」
+4. 点击安装 → 完成！
 
-或者直接访问：[VSCode 扩展市场](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
+🔗 直达链接：[VSCode 扩展市场](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
 
 ### 从 VSIX 文件安装
 
@@ -95,27 +353,13 @@ code --install-extension sqlite-easy-tool-0.1.0.vsix
 - 点击"Execute"按钮执行
 - 查询结果会显示在下方表格中
 
-### 支持的操作
+---
 
-| 操作       | 说明                             | 快捷方式 |
-| ---------- | -------------------------------- | -------- |
-| 打开数据库 | 点击 `.db/.sqlite/.sqlite3` 文件 | -        |
-| 切换表格   | 点击左侧表名                     | -        |
-| 编辑单元格 | 双击单元格                       | -        |
-| 保存更改   | 自动保存                         | -        |
-| 执行查询   | 点击 Execute                     | -        |
-| 添加行     | 点击 Add Row                     | -        |
-| 删除行     | 选中后点击 Delete Row            | -        |
+## 💻 支持的文件格式
 
-## 📋 支持的文件格式
+✅ `.db` ✅ `.sqlite` ✅ `.sqlite3`
 
-| 扩展名     | 说明                   |
-| ---------- | ---------------------- |
-| `.db`      | 标准 SQLite 数据库文件 |
-| `.sqlite`  | SQLite 数据库文件      |
-| `.sqlite3` | SQLite 3 数据库文件    |
-
-> **提示**：扩展会自动关联这些文件类型，双击即可打开。
+> 双击这些文件，自动用可视化编辑器打开！
 
 ## 开发
 
@@ -150,36 +394,46 @@ npm run package
 - **VSCode Custom Editor API** - 原生编辑器集成
 - **WebView** - 现代化的用户界面
 
-## 💡 常见问题
+## ❓ 常见疑问
 
-### Q: 扩展是否会修改我的数据库文件？
+<details>
+<summary><b>Q: 会不会改坏我的数据库？</b></summary>
+<br>
+A: 你的编辑会直接保存到文件。<b>重要数据请先备份！</b> 💾
+</details>
 
-A: 是的，当你编辑数据后，更改会直接保存到数据库文件中。建议在编辑前备份重要数据。
+<details>
+<summary><b>Q: 我的数据库很大，卡不卡？</b></summary>
+<br>
+A: 我们用了分页加载，<b>100 条/页</b>，百万级数据也不怕。但 GB 级的超大文件可能会慢一些。
+</details>
 
-### Q: 支持大型数据库吗？
+<details>
+<summary><b>Q: 能创建新数据库吗？</b></summary>
+<br>
+A: 当前版本主打<b>查看和编辑</b>。创建功能在路上了，敬请期待！ 🚀
+</details>
 
-A: 扩展使用分页加载，每页 100 条记录，可以处理大型数据表。但整个数据库文件会加载到内存，超大文件（GB 级）可能会影响性能。
+<details>
+<summary><b>Q: 不会 SQL 怎么办？</b></summary>
+<br>
+A: <b>这就是我们的亮点！</b> 所有操作都能用鼠标完成，SQL 只是高级选项。 👆
+</details>
 
-### Q: 可以创建新的数据库吗？
+## 🗺️ 未来计划
 
-A: 当前版本主要用于查看和编辑现有数据库。创建新数据库功能计划在未来版本中添加。
+我们正在让它变得更强大：
 
-### Q: SQL 查询有限制吗？
+- [ ] 🎉 创建新数据库和表
+- [ ] 📊 导入/导出 CSV 数据
+- [ ] ✨ 高级 SQL 编辑器（语法高亮、自动补全）
+- [ ] 🏛️ 数据库结构可视化
+- [ ] 🎨 多主题支持
+- [ ] ⚡ 性能优化（虚拟滚动）
 
-A: 支持标准 SQL 查询语句。出于安全考虑，某些系统级操作可能受限。
+## 🤝 一起让它变更好
 
-## 🗺️ 路线图
-
-- [ ] 支持创建新数据库和表
-- [ ] 导入/导出 CSV 数据
-- [ ] 高级 SQL 编辑器（语法高亮、自动补全）
-- [ ] 数据库结构可视化
-- [ ] 多主题支持
-- [ ] 性能优化（虚拟滚动）
-
-## 🤝 贡献
-
-欢迎贡献代码！如果你有好的想法或发现了 bug：
+有好点子？发现 Bug？欢迎贡献！
 
 1. Fork 本仓库
 2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
@@ -187,24 +441,30 @@ A: 支持标准 SQL 查询语句。出于安全考虑，某些系统级操作可
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启一个 Pull Request
 
-## 🐛 问题反馈
+## 🐛 遇到问题？
 
-如果遇到问题或有功能建议，请在 [GitHub Issues](https://github.com/bug-origin/SQLite-Easy-Tool/issues) 提交。
+去 [GitHub Issues](https://github.com/bug-origin/SQLite-Easy-Tool/issues) 告诉我们，我们会尽快修复！
 
 ## 📄 许可证
 
 本项目采用 [MIT](LICENSE) 许可证。
 
-## ⭐ 支持项目
+## ⭐ 喜欢就给个星星吧！
 
-如果这个扩展对你有帮助，请：
+如果这个插件帮到了你：
 
-- 在 [VSCode 市场](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)给个五星好评
-- 在 [GitHub](https://github.com/bug-origin/SQLite-Easy-Tool) 点个 Star ⭐
-- 分享给你的朋友
+- 👍 在 [VSCode 市场](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)给个五星好评
+- ⭐ 在 [GitHub](https://github.com/bug-origin/SQLite-Easy-Tool) 点个 Star
+- 👋 分享给你的小伙伴
 
 ---
 
-**Enjoy! 🎉**
+<div align="center">
+
+**🎉 享受可视化操作的乐趣！**
+
+制作不易，喜欢就点个 Star 吧 ⭐
+
+</div>
 
 查看 [CHANGELOG.md](CHANGELOG.md) 了解版本更新历史。

@@ -1,6 +1,6 @@
 # SQLite Easy Tool
 
-A clean and easy-to-use VSCode SQLite database visual editor for viewing, editing, and querying SQLite databases directly in VSCode.
+🎨 **Operate databases like Excel** - No need to memorize SQL syntax, easily manage SQLite data through an intuitive visual interface. Click, double-click, drag and drop - what you see is what you get!
 
 [![VSCode Version](https://img.shields.io/badge/VSCode-1.85+-blue.svg)](https://marketplace.visualstudio.com/items?itemName=Dev-Winston.sqlite-easy-tool)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -9,20 +9,37 @@ A clean and easy-to-use VSCode SQLite database visual editor for viewing, editin
 <!-- Place main screenshot or demo GIF here -->
 <!-- ![Demo](images/demo.gif) -->
 
-## ✨ Why SQLite Easy Tool?
+## ✨ Say Goodbye to Command Line, Embrace Visualization
 
-During development, you often need to view and debug SQLite databases, but switching to external tools is cumbersome and interrupts your workflow. SQLite Easy Tool lets you complete all database operations directly in VSCode without installing additional software.
+**Don't know SQL? No problem!** Just click with your mouse to complete database operations.
 
-## 🚀 Features
+- ❌ No need to memorize SQL syntax
+- ❌ No need to open external database tools
+- ❌ No need to type commands in terminal
+- ✅ As simple as editing Excel spreadsheets
+- ✅ All operations in your familiar VSCode
 
-- **📂 Visual Browsing** - Open `.db`, `.sqlite`, `.sqlite3` files directly in VSCode
-- **🗂️ Table Navigation** - Sidebar displays all tables, click to switch
-- **📄 Data Pagination** - Support for large tables with pagination (100 rows per page)
-- **💻 SQL Query** - Built-in SQL editor to execute custom queries
-- **✏️ Cell Editing** - Double-click cells to edit data directly
-- **➕ Row Operations** - Add and delete rows
-- **🔍 Column Info** - Display field types and primary key indicators
-- **💾 Auto-save** - Automatically save data changes to the database file
+## 🎯 Core Highlights: What You See Is What You Get
+
+### 📊 View Data Like Excel
+
+- **Click to View** - Table list on the left, click what you want to see
+- **Intuitive Display** - Data presented in table format, clear at a glance
+- **Smart Pagination** - Auto-pagination, smooth browsing even for large tables
+- **Type Annotation** - Field types and primary key indicators clearly visible 🔑
+
+### ✏️ Edit Data Like Excel
+
+- **Double-Click to Edit** - Double-click cells to modify directly, no UPDATE statements needed
+- **Click to Add** - Click button to add new rows, form pops up automatically
+- **Click to Delete** - Select row and click delete, goodbye DELETE statements
+- **Instant Save** - Auto-save after modification, no worries about data loss
+
+### 💻 Pro Mode: SQL Query
+
+- **Built-in Editor** - Need complex queries? SQL editor is always ready
+- **One-Click Execute** - Run it right after writing, results appear instantly
+- **Result Visualization** - Query results displayed in table format too
 
 ## 📸 Demo
 
