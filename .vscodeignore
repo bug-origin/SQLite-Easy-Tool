@@ -1,0 +1,50 @@
+# VSCode extension ignore file
+# Files and folders to exclude from the extension package
+
+# Source files
+src/**
+test-fixtures/**
+*.ts
+!dist/**/*.d.ts
+
+# Build artifacts
+node_modules/**
+.vscode/**
+.vscode-test/**
+
+# Development files
+.gitignore
+.gitattributes
+tsconfig.json
+jest.config.js
+Dockerfile
+
+# Documentation (keep only essential)
+.github/**
+
+# Test files
+**/__mocks__/**
+**/*.test.*
+**/*.spec.*
+
+# Source maps (comment out if you want to include them for debugging)
+**/*.map
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Misc
+.editorconfig
+.eslintrc*
+.prettierrc*

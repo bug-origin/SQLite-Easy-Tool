@@ -6,16 +6,24 @@
   "publisher": "Dev-Winston",
   "license": "MIT",
   "icon": "images/icon.png",
+  "author": {
+    "name": "bug-origin"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/vscode-sqlite-editor"
+    "url": "https://github.com/bug-origin/SQLite-Easy-Tool"
   },
+  "bugs": {
+    "url": "https://github.com/bug-origin/SQLite-Easy-Tool/issues"
+  },
+  "homepage": "https://github.com/bug-origin/SQLite-Easy-Tool#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other",
-    "Visualization"
+    "Data Science",
+    "Visualization",
+    "Programming Languages"
   ],
   "keywords": [
     "sqlite",
@@ -23,7 +31,13 @@
     "db",
     "sql",
     "editor",
-    "viewer"
+    "viewer",
+    "sqlite3",
+    "query",
+    "data",
+    "table",
+    "visual editor",
+    "database management"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
