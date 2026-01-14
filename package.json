@@ -1,0 +1,72 @@
+{
+  "name": "sqlite-easy-tool",
+  "displayName": "SQLite Easy Tool",
+  "description": "Visual editor for SQLite databases - view, edit, and query your .db, .sqlite, .sqlite3 files",
+  "version": "0.1.0",
+  "publisher": "Dev-Winston",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/vscode-sqlite-editor"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "sqlite",
+    "database",
+    "db",
+    "sql",
+    "editor",
+    "viewer"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "sqliteEditor.editor",
+        "displayName": "SQLite Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.sqlite"
+          },
+          {
+            "filenamePattern": "*.sqlite3"
+          },
+          {
+            "filenamePattern": "*.db"
+          }
+        ],
+        "priority": "default"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build:ext",
+    "build": "npm run build:ext",
+    "build:ext": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && cp node_modules/sql.js/dist/sql-wasm.wasm dist/",
+    "watch": "npm run build:ext -- --watch",
+    "package": "vsce package",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.19.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "sql.js": "^1.13.0"
+  }
+}
