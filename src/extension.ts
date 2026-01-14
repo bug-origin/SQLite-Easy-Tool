@@ -44,7 +44,7 @@ class SqliteEditorProvider
       const fileBuffer = fs.readFileSync(dbPath);
       db = new SQL.Database(fileBuffer);
     } catch (e) {
-      webviewPanel.webview.html = `<html><body><h2>无法打开数据库: ${e}</h2></body></html>`;
+      webviewPanel.webview.html = `<html><body><h2>Failed to open database: ${e}</h2></body></html>`;
       return;
     }
 
